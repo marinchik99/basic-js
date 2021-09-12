@@ -12,19 +12,23 @@ import { NotImplementedError } from '../extensions/index.js';
  * 
  */
 export default function getSeason(date) {
- if (date === null){
+  
+ if (!date){
    return 'Unable to determine the time of year!';
  }
-
- if (date.getMonth >=2 || date.getMonth <= 4 ){
+ if (!(date instanceof Date)|| date.hasOwnProperty('toString')){
+   throw new Error('Invalid date!');
+ }
+ let month = date.getMonth();
+ if (month >= 2 && month <= 4 ){
    return 'spring';}
-   else if(date.getMonth >=5 || date.getMonth <= 7 ){
+   else if(month >=5 && month <= 7 ){
      return 'summer';
    }
-   else if (date.getMonth >=8 || date.getMonth <= 10 ){
+   else if (month >= 8 && month <= 10 ){
      return 'autumn';
    }
-   else {
+   else if(month == 11 || month <= 1 ) {
      return 'winter';
    }
 }
